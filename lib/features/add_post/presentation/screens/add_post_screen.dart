@@ -92,13 +92,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
                               color: Colors.black38, // Set border color
                               width: 1.0,       // Set border width
                             ),
+                            image:image !=null? DecorationImage(
+                                image: FileImage(image)
+
+                            ):null
                           ),
-                          child: image != null
-                              ? Image.file(
-                              image,
-                            fit: BoxFit.fill,
-                          )
-                              :const Icon(Icons.add),
+                            child:  const Icon(Icons.add),
                         ),
                       );
                     },

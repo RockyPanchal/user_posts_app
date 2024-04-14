@@ -71,9 +71,8 @@ class _PostListScreenState extends State<PostListScreen> {
                           const SizedBox(height: 8),
                           Text(post.description),
                           const SizedBox(height: 8),
-                           (post.imagePath.isEmpty)
-                            ?const SizedBox(height: 12)
-                            :CachedNetworkImage(
+                           if(post.imagePath.isNotEmpty && post.imagePath != 'null')
+                            CachedNetworkImage(
                              imageUrl: post.imagePath,
                              placeholder: (context, url) =>  Shimmer.fromColors(
                                baseColor: Colors.black12,

@@ -23,12 +23,14 @@ class AddPostsBloc extends Bloc<AddPostsEvent, AddPostsState> {
     PostModel postModel = event.post;
     emit(AddPostLoadingState());
     try {
-      File file = File(postModel.imagePath);
-      final compressImage = await FlutterNativeImage.compressImage(Uri.encodeFull(file.absolute.path),
-          quality: 30, percentage: 50);
-      String imgPath = await FirebaseDatabaseProvider.shared
-          .addImageToFirebase(compressImage.path);
-      postModel.imagePath = imgPath;
+      if(postModel.imagePath.isNotEmpty ){
+        File file = File(postModel.imagePath);
+        final compressImage = await FlutterNativeImage.compressImage(Uri.encodeFull(file.absolute.path),
+            quality: 30, percentage: 50);
+        String imgPath = await FirebaseDatabaseProvider.shared
+            .addImageToFirebase(compressImage.path);
+        postModel.imagePath = imgPath;
+      }
       PostEntity postEntity = FirebaseDatabaseProvider.shared.createPost(postModel);
       emit(PostsAddedState(postEntity));
     } catch (e) {
